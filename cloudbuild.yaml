@@ -1,3 +1,17 @@
 steps:
 - name: gcr.io/cloud-builders/git
   args: ['clone', 'https://github.com/khushi9124/repo1.git']
+- name: gcr.io/cloud-builders/gsutil
+    args: ['cp', 'quickstart.py', 'gs://wow-taw-d1-ssunderam-93bq-composer-bucket/dags']
+
+- name: gcr.io/cloud-builders/gcloud
+    args: 
+      [
+        'composer', 
+        'environments', 
+        'storage', 
+        'dags', 
+        'import', 
+        '--environment', 'usertest', 
+        '--location', 'us-east1', 
+        '--source', 'gs://wow-taw-d1-ssunderam-93bq-composer-bucket/dags/quickstart.py']
